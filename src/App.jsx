@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
 import Card from "components/Card";
+import Header from "components/Header";
+import SetGoal from "components/SetGoal";
 
 const App = () => {
     const [card, setCard] = useState([
@@ -22,19 +24,19 @@ const App = () => {
     const [desc, setDesc] = useState("");
 
     const titleHandler = (e) => {
-        let value = e.target.value;
+        const value = e.target.value;
         setTitle(value);
     };
     const descHandler = (e) => {
-        let value = e.target.value;
+        const value = e.target.value;
         setDesc(value);
     };
     const writeContentHandeler = () => {
-        let id = card.length ? card[card.length - 1].id + 1 : 0;
+        const id = card.length ? card[card.length - 1].id + 1 : 0;
         if (title === "" || desc === "") {
             alert("제목 또는 내용이 비어있는지 확인해주세요!");
         } else {
-            let newContent = {
+            const newContent = {
                 title,
                 desc,
                 id,
@@ -48,12 +50,12 @@ const App = () => {
 
     const deleteCardHandler = (test) => {
         console.log(typeof test); // 0 number
-        let updatedCard = card.filter((ele) => ele.id !== test);
+        const updatedCard = card.filter((ele) => ele.id !== test);
         setCard(updatedCard);
         // console.log(updatedCard);
     };
     const doneCardHandler = (test) => {
-        let completeCard = card.map((ele) => {
+        const completeCard = card.map((ele) => {
             if (ele.id === test) {
                 ele.done = !ele.done;
             }
@@ -63,73 +65,46 @@ const App = () => {
         console.log(completeCard);
     };
 
+    const workingList = card.filter((v) => v.done === false);
+    const doneList = card.filter((v) => v.done === true);
+
     return (
         <div className="todo-list-container">
-            <div className="header">
-                <div className="header-left">
-                    <span>My Todo List</span>
-                </div>
-                <div className="header-right">
-                    <span>React</span>
-                </div>
-            </div>
-            <div className="content">
-                <div className="content-left">
-                    <div className="title">제목</div>
-                    <input
-                        type="text"
-                        value={title}
-                        placeholder="제목 입력영역"
-                        onChange={titleHandler}
-                    />
-                    <div className="description">내용</div>
-                    <input
-                        type="text"
-                        value={desc}
-                        placeholder="내용 입력영역"
-                        onChange={descHandler}
-                    />
-                </div>
-                <div className="content-right">
-                    <button
-                        className="add-button"
-                        onClick={writeContentHandeler}
-                    >
-                        추가하기
-                    </button>
-                </div>
-            </div>
+            <Header />
+            <SetGoal
+                title={title}
+                desc={desc}
+                titleHandler={titleHandler}
+                descHandler={descHandler}
+                writeContentHandeler={writeContentHandeler}
+            />
             <div className="working">
                 <span>Working..🔥</span>
             </div>
             <div className="card-container">
-                {card
-                    .filter((v) => v.done === false)
-                    .map((ele) => {
-                        return (
-                            <Card
-                                ele={ele}
-                                deleteCardHandler={deleteCardHandler}
-                                doneCardHandler={doneCardHandler}
-                            />
-                        );
-                    })}
+                {workingList.map((ele) => {
+                    return (
+                        <Card
+                            ele={ele}
+                            deleteCardHandler={deleteCardHandler}
+                            doneCardHandler={doneCardHandler}
+                        />
+                    );
+                })}
             </div>
             <div className="done">
                 <span>Done..!👍</span>
             </div>
             <div className="completed-card-container">
-                {card
-                    .filter((v) => v.done === true)
-                    .map((ele) => {
-                        return (
-                            <Card
-                                ele={ele}
-                                deleteCardHandler={deleteCardHandler}
-                                doneCardHandler={doneCardHandler}
-                            />
-                        );
-                    })}
+                {doneList.map((ele) => {
+                    return (
+                        <Card
+                            ele={ele}
+                            deleteCardHandler={deleteCardHandler}
+                            doneCardHandler={doneCardHandler}
+                        />
+                    );
+                })}
             </div>
         </div>
     );
