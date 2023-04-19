@@ -20,39 +20,34 @@ const App = () => {
         // },
     ]);
     // 헷갈리지 말자. 맨 처음에 추가했을 때를 done false로 했다!!!
-    const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
+    const [inputContent, setInputContent] = useState({ title: "", desc: "" });
 
-    const titleHandler = (e) => {
-        const value = e.target.value;
-        setTitle(value);
+    // event.target.name, value 속성 이용. 입력 컨텐트 하나로 관리
+    const contentHandler = (e) => {
+        setInputContent({ ...inputContent, [e.target.name]: e.target.value });
     };
-    const descHandler = (e) => {
-        const value = e.target.value;
-        setDesc(value);
-    };
+
     const writeContentHandeler = () => {
         const id = card.length ? card[card.length - 1].id + 1 : 0;
+        const title = inputContent.title,
+            desc = inputContent.desc;
         if (title === "" || desc === "") {
             alert("제목 또는 내용이 비어있는지 확인해주세요!");
         } else {
-            const newContent = {
+            const newCard = {
                 title,
                 desc,
                 id,
                 done: false,
             };
-            setCard([...card, newContent]);
-            setTitle("");
-            setDesc("");
+            setCard([...card, newCard]);
+            setInputContent({ title: "", desc: "" });
         }
     };
 
     const deleteCardHandler = (test) => {
-        console.log(typeof test); // 0 number
         const updatedCard = card.filter((ele) => ele.id !== test);
         setCard(updatedCard);
-        // console.log(updatedCard);
     };
     const doneCardHandler = (test) => {
         const completeCard = card.map((ele) => {
@@ -62,7 +57,6 @@ const App = () => {
             return ele;
         });
         setCard(completeCard);
-        console.log(completeCard);
     };
 
     const workingList = card.filter((v) => v.done === false);
@@ -72,11 +66,10 @@ const App = () => {
         <div className="todo-list-container">
             <Header />
             <SetGoal
-                title={title}
-                desc={desc}
-                titleHandler={titleHandler}
-                descHandler={descHandler}
+                title={inputContent.title}
+                desc={inputContent.desc}
                 writeContentHandeler={writeContentHandeler}
+                contentHandler={contentHandler}
             />
             <div className="working">
                 <span>Working..🔥</span>
