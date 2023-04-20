@@ -26,6 +26,7 @@ const Card = ({ ele, deleteCardHandler, doneCardHandler }) => {
     );
 };
 const StCard = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-center;
@@ -35,10 +36,13 @@ const StCard = styled.div`
     border-radius: 10px;
     /* text-align: start; */
     width: 240px;
-    padding: 20px;
+    padding: 30px;
 `;
 
 const StLink = styled(NavLink)`
+    position: absolute;
+    right: 10px;
+    top: 10px;
     margin: 10px;
     text-decoration: none;
     &:visited {
@@ -63,8 +67,9 @@ const StCardTitle = styled(StCardDiv)`
     // height: 50px;
     // text-align: start;
     /* margin-bottom: 5px; */
+    margin-top: 15px;
     font-size: larger;
-    font-weight: 900;
+    font-weight: 700;
     display: block;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -82,10 +87,10 @@ const StButtonController = styled(StCardDiv)`
     align-items: center;
 `;
 const StButton = styled.button`
-    border-width: 3px;
+    border: 3px solid
+        ${(props) =>
+            props.className === "delete-button" ? "red" : "rgb(128, 200, 128)"};
     border-radius: 10px;
-    border-color: ${(props) =>
-        props.className === "delete-button" ? "red" : "rgb(128, 200, 128)"};
     padding: 10px;
     padding-inline: 30px;
     cursor: pointer;

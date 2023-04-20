@@ -6,7 +6,6 @@ import { addContent, deleteContent, switchContent } from "redux/modules/todo";
 import Card from "./Card";
 
 function CardList() {
-    // store에서 컨텐트리스트 가져옴 // 이거 안되면 useEffect로 받아야 할 듯.
     const contentList = useSelector((state) => {
         return state.todo.total;
     });
