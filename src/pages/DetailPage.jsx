@@ -12,7 +12,7 @@ function DetailPage() {
     // const params = useParams();
 
     const todo = useSelector((state) => {
-        return state.todo.detail; // 이거 왜 두 개 뽑혀왔지?
+        return state.todo.detail;
     });
     console.log(todo);
     const dispatch = useDispatch();
