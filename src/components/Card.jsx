@@ -1,26 +1,99 @@
-import "../App.css";
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 const Card = ({ ele, deleteCardHandler, doneCardHandler }) => {
     return (
-        <div className="card" key={ele.id}>
-            <div id="card-title">{ele.title}</div>
-            <div className="card-content">{ele.desc}</div>
-            <div className="button-controller">
-                <button
+        <StCard className="card" key={ele.id}>
+            <StLink to={`/${ele.id}`}>상세보기</StLink>
+            <StCardTitle id="card-title">{ele.title}</StCardTitle>
+            <StCardContent className="card-content">{ele.desc}</StCardContent>
+            <StButtonController className="button-controller">
+                <StButton
                     className="delete-button"
                     onClick={() => deleteCardHandler(ele.id)}
                 >
                     삭제하기
-                </button>
-                <button
+                </StButton>
+                <StButton
                     className="rest-button"
                     onClick={() => doneCardHandler(ele.id)}
                 >
                     {ele.done === false ? "완료" : "취소"}
-                </button>
-            </div>
-        </div>
+                </StButton>
+            </StButtonController>
+        </StCard>
     );
 };
+const StCard = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-center;
+    // align-items: center;
+    margin: 20px;
+    border: 5px solid #007bff;
+    border-radius: 10px;
+    /* text-align: start; */
+    width: 240px;
+    padding: 20px;
+`;
+
+const StLink = styled(NavLink)`
+    margin: 10px;
+    text-decoration: none;
+    &:visited {
+        text-decoration: none;
+    }
+    &:hover {
+        text-decoration: none;
+    }
+    &:focus {
+        text-decoration: none;
+    }
+`;
+
+const StCardDiv = styled.div`
+    // margin: 5px;
+    width: 100%;
+    // height: 50px;
+    // margin-bottom: 0px;
+`;
+const StCardTitle = styled(StCardDiv)`
+    width: 100%;
+    // height: 50px;
+    // text-align: start;
+    /* margin-bottom: 5px; */
+    font-size: larger;
+    font-weight: 900;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+`;
+// const StCardContent = styled(StCardDiv)`
+const StCardContent = styled.p`
+    // display: flex;
+    /* align-items: center; */
+`;
+const StButtonController = styled(StCardDiv)`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+`;
+const StButton = styled.button`
+    border-width: 3px;
+    border-radius: 10px;
+    border-color: ${(props) =>
+        props.className === "delete-button" ? "red" : "rgb(128, 200, 128)"};
+    padding: 10px;
+    padding-inline: 30px;
+    cursor: pointer;
+    background-color: transparent;
+    &:hover {
+        background-color: ${(params) =>
+            params.children === "삭제하기" ? "red" : "green"};
+    }
+`;
 
 export default Card;
