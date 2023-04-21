@@ -1,11 +1,21 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHref, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Card = ({ ele, deleteCardHandler, doneCardHandler }) => {
+    const navigate = useNavigate();
+    // const testText = "이거 되나?";
+    const handleClick = () => {
+        navigate(`/${ele.id}`, {
+            state: ele,
+        });
+    };
+
     return (
         <StCard className="card" key={ele.id}>
-            <StLink to={`/${ele.id}`}>상세보기</StLink>
+            {/* <StLink to={`/${ele.id}`}>상세보기</StLink> */}
+            {/* <StLink to={`/${ele.id}?content=${ele}`}>상세보기</StLink> */}
+            <StLinkButton onClick={handleClick}>상세보기</StLinkButton>
             <StCardTitle id="card-title">{ele.title}</StCardTitle>
             <StCardContent className="card-content">{ele.desc}</StCardContent>
             <StButtonController className="button-controller">
@@ -37,6 +47,13 @@ const StCard = styled.div`
     /* text-align: start; */
     width: 240px;
     padding: 30px;
+`;
+const StLinkButton = styled.button`
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    margin: 10px;
+    cursor: pointer;
 `;
 
 const StLink = styled(NavLink)`

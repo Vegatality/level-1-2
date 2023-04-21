@@ -1,25 +1,32 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getContentId } from "redux/modules/todo";
 import styled, { css } from "styled-components";
 
 function DetailPage() {
+    const testLocation = useLocation();
+    console.log(testLocation);
+    console.log(testLocation.state); // {title: '리액트 공부하기', desc: '리액트 기초를 공부해봅시다.', id: 0, done: false}
+    const todo = testLocation.state;
+
     const navigate = useNavigate();
+    const something = useParams();
+    console.log(something);
     const { id } = useParams();
     console.log("id 뽑은거: ", id); // 0
     console.log("id 타입: ", typeof id); // string
     // const params = useParams();
 
-    const todo = useSelector((state) => {
-        return state.todo.detail;
-    });
-    console.log(todo);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getContentId(+id));
-        console.log("컴포넌트 렌더링 발생");
-    }, [dispatch, id]);
+    // const todo = useSelector((state) => {
+    //     return state.todo.detail;
+    // });
+    // console.log(todo);
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     dispatch(getContentId(+id));
+    //     console.log("컴포넌트 렌더링 발생");
+    // }, [dispatch, id]);
 
     return (
         <StBody>
