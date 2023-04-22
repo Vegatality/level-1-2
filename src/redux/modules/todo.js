@@ -49,6 +49,7 @@ const initialState = {
             done: false,
         },
     ],
+    // detail 프로퍼티 필요 없어졌음. 주석처리 해도 됨.
     detail: {
         title: "",
         desc: "",
@@ -187,6 +188,7 @@ const todosSlice = createSlice({
             state.total = afterDeleteCard;
             // return { ...state, total: afterDeleteCard };
         },
+        // 이거 getContentId 안쓰도록 수정했음. 주석처리 해도 됨.
         getContentId: (state, action) => {
             // 어떻게 해야 기존 카드들을 살릴 수 있을까? 여기서 깨달았다. detail용 프로퍼티를 따로 만들어야 한다는 것을!
 
