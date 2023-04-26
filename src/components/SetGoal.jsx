@@ -17,8 +17,13 @@ const SetGoal = () => {
     const writeContentHandeler = () => {
         // dispatch는 심부름꾼
         console.log(inputContent);
-        dispatch(addContent(inputContent));
-        setInputContent({ title: "", desc: "" });
+        if (inputContent.title === "" || inputContent.desc === "") {
+            alert("제목 또는 내용이 비어있는지 확인해주세요!");
+            return;
+        } else {
+            dispatch(addContent(inputContent));
+            setInputContent({ title: "", desc: "" });
+        }
     };
 
     return (

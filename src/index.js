@@ -11,9 +11,7 @@ import store from "redux/config/configStore";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Provider store={store}>
-        {/* <Test /> */}
         <App />
-        {/* <DetailPage /> */}
     </Provider>
 );
 

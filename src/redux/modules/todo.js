@@ -151,23 +151,16 @@ const todosSlice = createSlice({
             const id = state.total.length
                 ? state.total[state.total.length - 1].id + 1
                 : 0;
-            const title = action.payload.title,
-                desc = action.payload.desc;
-            let newCard;
-            if (title === "" || desc === "") {
-                alert("제목 또는 내용이 비어있는지 확인해주세요!");
-                // return state;
-            } else {
-                newCard = {
-                    title,
-                    desc,
-                    id,
-                    done: false,
-                };
-                // immer 가 불변성 관리 알아서 해줌.
-                state.total.push(newCard);
-                // return { ...state, total: [...state.total, newCard] } // 중요!⭐ 객체는 먼저 한 번 뿌리고 뒤에서 프로퍼티 찾아서 바꾸는 식으로 생각.
-            }
+            const { title, desc } = action.payload;
+            const newCard = {
+                title,
+                desc,
+                id,
+                done: false,
+            };
+            // immer 가 불변성 관리 알아서 해줌.
+            state.total.push(newCard);
+            // return { ...state, total: [...state.total, newCard] } // 중요!⭐ 객체는 먼저 한 번 뿌리고 뒤에서 프로퍼티 찾아서 바꾸는 식으로 생각.
         },
         switchContent: (state, action) => {
             const completeCard = state.total.map((ele) => {
